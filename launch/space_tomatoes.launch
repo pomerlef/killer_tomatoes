@@ -25,6 +25,7 @@
 <remap from="tomatoes_hit_topic" to="rocket_hit_topic"/>
 <param name="space_frame_id" value="not_so_deep_space"/>
 <param name="rocket_frame_id" value="rocket"/>
+<param name="max_tomatoes" value="80" />
 </node>
 
 <!-- Rviz -->

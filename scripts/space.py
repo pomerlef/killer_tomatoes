@@ -10,12 +10,12 @@ class Not_so_deep_space():
     def __init__(self):
         rospy.init_node('deepSpaceNode', anonymous=False)
         markerPub = rospy.Publisher('space_marker_topic', Marker, queue_size=10)
+        hitPub = rospy.Publisher('final_frontier_hit_topic', Bool, queue_size=10)
         listener = tf.TransformListener()
         
         # parameters
         space_frame_id = rospy.get_param('~space_frame_id', 'not_so_deep_space')
         rocket_frame_id = rospy.get_param('~rocket_frame_id', 'rocket')
-        hitPub = rospy.Publisher('final_frontier_hit_topic', Bool, queue_size=10)
         border_dist = 50
 
         rate = rospy.Rate(1)
@@ -180,6 +180,12 @@ class Not_so_deep_space():
             markerPub.publish(self.border2Marker)
             markerPub.publish(self.border3Marker)
             markerPub.publish(self.border4Marker)
+
+            if(hitPub.get_num_connections() == 0):
+                rospy.logwarn_once("message from space: nobody is listening!")
+            else:
+                rospy.loginfo_once("message from space: at least someone is around")
+
             rate.sleep()
 
 if __name__ == '__main__':
