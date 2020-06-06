@@ -103,7 +103,7 @@ class Rocket():
         self.robotText.color.r = 1.0
         self.robotText.color.g = 1.0
         self.robotText.color.b = 1.0
-        self.robotText.color.a = 0.0
+        self.robotText.color.a = 0.01
         self.robotText.text = "Ouch!"
         
         self.robotText.lifetime = rospy.Duration(0.0)
@@ -135,13 +135,13 @@ class Rocket():
             self.robotMarker.header.stamp = rospy.get_rostime()
             markerPub.publish(self.robotMarker)
             
-            if self.robotShield.color.a > 0.0:
+            if self.robotShield.color.a > 0.01:
                 self.robotShield.color.a -= 0.01
 
             self.robotShield.header.stamp = rospy.get_rostime()
             markerPub.publish(self.robotShield)
 
-            if self.robotText.color.a > 0.0:
+            if self.robotText.color.a > 0.01:
                 self.robotText.color.a -= 0.01
 
             self.robotText.header.stamp = rospy.get_rostime()

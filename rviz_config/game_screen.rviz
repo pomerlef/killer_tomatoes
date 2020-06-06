@@ -74,7 +74,7 @@ Visualization Manager:
       Marker Topic: /space_marker_topic
       Name: Deep Space
       Namespaces:
-        space_markers: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -90,7 +90,7 @@ Visualization Manager:
       Marker Topic: /thruster_marker_topic
       Name: Thruster
       Namespaces:
-        game_markers: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -98,14 +98,14 @@ Visualization Manager:
       Marker Topic: /tomatoes_marker_topic
       Name: Killer Tomatoes!!!
       Namespaces:
-        "": true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: not_so_deep_space
+    Fixed Frame: deep_space
     Frame Rate: 32
   Name: root
   Tools:
