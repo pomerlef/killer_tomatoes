@@ -6,28 +6,28 @@
 </node>
 
 <!-- Rocket Space Sim (better than Kerbal Space by far) -->
-<node pkg="percep3d_ros_exam_task" type="space.py" name="deep_space" output="screen">
+<node pkg="killer_tomatoes" type="space.py" name="deep_space" output="screen">
 <remap from="final_frontier_hit_topic" to="rocket_hit_topic"/>
 <param name="space_frame_id" value="not_so_deep_space" />
 </node>
 
-<node pkg="percep3d_ros_exam_task" type="rocket.py" name="rocket" output="screen">
+<node pkg="killer_tomatoes" type="rocket.py" name="rocket" output="screen">
 <param name="rocket_frame_id" value="rocket"/>
 <param name="rocket_parent_frame_id" value="not_so_deep_space"/>
 </node>
 
-<node pkg="percep3d_ros_exam_task" type="thruster.py" name="thruster" output="screen">
+<node pkg="killer_tomatoes" type="thruster.py" name="thruster" output="screen">
 <param name="thruster_frame_id" value="thruster"/>
 <param name="thruster_parent_frame_id" value="rocket"/>
 </node>
 
-<node pkg="percep3d_ros_exam_task" type="tomatoes.py" name="tomatoes" output="screen">
+<node pkg="killer_tomatoes" type="tomatoes.py" name="tomatoes" output="screen">
 <remap from="tomatoes_hit_topic" to="rocket_hit_topic"/>
 <param name="space_frame_id" value="not_so_deep_space"/>
 <param name="rocket_frame_id" value="rocket"/>
 </node>
 
 <!-- Rviz -->
-<node type="rviz" name="rviz" pkg="rviz" args="-d $(find percep3d_ros_exam_task)/rviz_config/game_screen.rviz" />
+<node type="rviz" name="rviz" pkg="rviz" args="-d $(find killer_tomatoes)/rviz_config/game_screen.rviz" />
 
 </launch>
