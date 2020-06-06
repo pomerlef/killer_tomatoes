@@ -39,7 +39,7 @@ class Tomatoes():
         # parameters
         self.space_frame_id = rospy.get_param('~space_frame_id', 'not_so_deep_space')
         self.rocket_frame_id = rospy.get_param('~rocket_frame_id', 'rocket')
-        self.max_tomatoes = 10
+        self.max_tomatoes = rospy.get_param('~max_tomatoes', 10)
         hit_radius = 4.
 
         markerArray = MarkerArray() 
@@ -83,6 +83,11 @@ class Tomatoes():
                         hitPub.publish(True)
                 else:
                     tomato_hit_flag[m.id] = False
+            
+            if(hitPub.get_num_connections() == 0):
+                rospy.logwarn_once("message from killer tomatoes: nobody is listening to our hits")
+            else:
+                rospy.loginfo_once("message from killer tomatoes: someone is here ARG!!!")
 
 
             

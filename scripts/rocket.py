@@ -10,10 +10,14 @@ class Rocket():
 
     def __init__(self):
         rospy.init_node('rocketNode', anonymous=False)
+        rospy.on_shutdown(self.shutdowni_callback)
         markerPub = rospy.Publisher('rocket_marker_topic', Marker, queue_size=10)
         rospy.Subscriber("accel_topic", Accel, self.move_callback)
         rospy.Subscriber("rocket_hit_topic", Bool, self.hit_callback)
         tf_broadcaster = tf.TransformBroadcaster()
+
+        self.nb_hits = 0
+        self.start_time = rospy.Time.now()
 
         # parameters
         rocket_frame_id = rospy.get_param('~rocket_frame_id', 'rocket')
@@ -159,7 +163,11 @@ class Rocket():
     def hit_callback(self, msg):
         self.robotText.color.a = 1.0
         self.robotShield.color.a = 1.0
+        self.nb_hits += 1
 
+    def shutdowni_callback(self):
+        dt = (rospy.Time.now() - self.start_time).to_sec()
+        rospy.logfatal("Your rocket was hit %.2f per sec!" % (self.nb_hits/dt))
 
 if __name__ == '__main__':
     try:
