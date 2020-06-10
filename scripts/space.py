@@ -159,14 +159,21 @@ class Not_so_deep_space():
         self.border4Marker.frame_locked = True
 
         while not rospy.is_shutdown():
+
+            if(hitPub.get_num_connections() == 0):
+                rospy.logwarn_once("message from space: nobody is listening!")
+            else:
+                rospy.loginfo_once("message from space: at least someone is around")
+
             try:
                 (trans, _) = listener.lookupTransform(
                         space_frame_id, rocket_frame_id, rospy.Time(0))
                 rocket_dist = np.abs(np.array(trans)) - border_dist
                 if (rocket_dist >  -8.).any():
                     hitPub.publish(True)
-
+                rospy.logwarn_once("message from space: great, I see the TF between "+space_frame_id+" and "+rocket_frame_id+" now")
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                rospy.logwarn_once("message from space: cannot find TF between "+space_frame_id+" and "+rocket_frame_id)
                 continue
 
             self.planeMarker.header.stamp    = rospy.get_rostime()
@@ -180,12 +187,7 @@ class Not_so_deep_space():
             markerPub.publish(self.border2Marker)
             markerPub.publish(self.border3Marker)
             markerPub.publish(self.border4Marker)
-
-            if(hitPub.get_num_connections() == 0):
-                rospy.logwarn_once("message from space: nobody is listening!")
-            else:
-                rospy.loginfo_once("message from space: at least someone is around")
-
+            
             rate.sleep()
 
 if __name__ == '__main__':

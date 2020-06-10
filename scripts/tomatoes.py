@@ -55,12 +55,18 @@ class Tomatoes():
         while not rospy.is_shutdown():
             nb_tomatos = len(markerArray.markers)
             
+            if(hitPub.get_num_connections() == 0):
+                rospy.logwarn_once("message from killer tomatoes: nobody is listening to our hits")
+            else:
+                rospy.loginfo_once("message from killer tomatoes: someone is here ARG!!!")
 
             try:
                 (trans, _) = listener.lookupTransform(
                         self.space_frame_id, self.rocket_frame_id, rospy.Time(0))
                 rocket_trans = np.array(trans)
+                rospy.logwarn_once("message from killer tomatoes: ok, the TF between the "+self.space_frame_id+" frame and the "+self.rocket_frame_id+ " frame is there now, uff")
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                rospy.logwarn_once("message from killer tomatoes: we cannot find TF between the "+self.space_frame_id+" frame and the "+self.rocket_frame_id+ " frame")
                 continue
 
             if random.random() > 0.95 and  nb_tomatos < self.max_tomatoes:
@@ -84,10 +90,7 @@ class Tomatoes():
                 else:
                     tomato_hit_flag[m.id] = False
             
-            if(hitPub.get_num_connections() == 0):
-                rospy.logwarn_once("message from killer tomatoes: nobody is listening to our hits")
-            else:
-                rospy.loginfo_once("message from killer tomatoes: someone is here ARG!!!")
+            
 
 
             
