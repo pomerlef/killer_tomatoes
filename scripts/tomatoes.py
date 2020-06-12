@@ -64,7 +64,7 @@ class Tomatoes():
                 (trans, _) = listener.lookupTransform(
                         self.space_frame_id, self.rocket_frame_id, rospy.Time(0))
                 rocket_trans = np.array(trans)
-                rospy.logwarn_once("message from killer tomatoes: ok, the TF between the "+self.space_frame_id+" frame and the "+self.rocket_frame_id+ " frame is there now, uff")
+                rospy.loginfo_once("message from killer tomatoes: ok, the TF between the "+self.space_frame_id+" frame and the "+self.rocket_frame_id+ " frame is there now, uff")
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                 rospy.logwarn_once("message from killer tomatoes: we cannot find TF between the "+self.space_frame_id+" frame and the "+self.rocket_frame_id+ " frame")
                 continue

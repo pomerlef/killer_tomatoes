@@ -171,7 +171,7 @@ class Not_so_deep_space():
                 rocket_dist = np.abs(np.array(trans)) - border_dist
                 if (rocket_dist >  -8.).any():
                     hitPub.publish(True)
-                rospy.logwarn_once("message from space: great, I see the TF between "+space_frame_id+" and "+rocket_frame_id+" now")
+                rospy.loginfo_once("message from space: great, I see the TF between "+space_frame_id+" and "+rocket_frame_id+" now")
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                 rospy.logwarn_once("message from space: cannot find TF between "+space_frame_id+" and "+rocket_frame_id)
                 continue
